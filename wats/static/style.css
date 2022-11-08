@@ -1,0 +1,25 @@
+body{
+    background-color: darkblue;
+    color: whitesmoke;
+}
+form{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+nav {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+nav a {
+    color:beige;
+    font-size: 3em;
+    
+}
