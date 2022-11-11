@@ -1,14 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1> {% block title %} Add a new scenario! {% endblock %}</h1>
-<form method="Post">
-    <label for="scenario_name">Scenario name</label>
-    <input type="text" name = "title" 
-    placeholder="scenario title" 
-    value = "{{ request.form['scenario_title' }}"></input>
-    <button>Add a step!</button>    
 
+{% if scenario %}
+
+
+<h1>Scenario <strong>{{scenario.scenario_name}}</strong> has been added!</h1>
+<p>click <a href="/scenario_list">here</a> to see all scenarios</p>
+
+{% endif %}
+
+
+
+<h1> {% block title %} Add a new scenario! {% endblock %}</h1>
+<form action="{{ url_for('add_scenario') }}" method="post">
+    <label for="name_id">Scenario name</label>
+    <input type="text" id = "name_id" name = "name_field" 
+    placeholder="scenario title" />
+    
+    <label for = "expected_id">Expected result</label>
+    <input id = "expected_id" name = "expected_field" type="text" />
+
+    <label for = "steps_id">Steps for execution</label>
+    <input id = "steps_id" name = "steps" type = "text" />
+
+    <label for = "author_id">Author name</label>
+    <input id = "author_id" name = "author" type = "text" />
+    
+    <input type = "submit" value="add_scenario">
 
 </form>
 {% endblock %}

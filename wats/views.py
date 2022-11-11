@@ -1,31 +1,37 @@
-from flask import Blueprint, flash, g, redirect, render_template, request, url_for
+from flask import render_template, request
+
+from models import Scenario, create_scenario
+from app import app
 
 
-
-bp = Blueprint('views', __name__)
-
-
-
-@bp.route("/", methods = ['GET'])
+@app.route("/")
 def index():
     return render_template('index.html')
 
-@bp.route("/scenario_list", methods=["GET"])
+@app.route("/scenario_list", methods=["GET"])
 def scenario_list():
-    from basic import Scenario
+    
     scenarios = Scenario.query.all()
+
     return render_template('scenario_list.html', scenarios = scenarios)
 
-@bp.route("/scenario/add", methods = ["GET", "POST"])
+@app.route("/scenario_add", methods = ["GET", "POST"])
 def add_scenario():
-    if request.method == "POST":
-        return render_template('add_scenario_done.html')
-    else:
+    if request.method == "GET":
         return render_template('add_scenario.html')
+    
+    scenario_name = request.form.get('name_field')
+    scenario_expected = request.form.get('expected_field')
+    """One text field for now, to be worked on"""
+    scenario_steps = request.form.get('steps')
+    scenario_author = request.form.get('author')
+    scenario = create_scenario(scenario_name, scenario_expected, scenario_steps, scenario_author)
 
-@bp.route("/scenario/<scenario_id>", methods = ["GET", "PUT", "POST"])
-def single_scenario(scenario_id):
-    if request.method == "PUT":
-        return f"get scenario {scenario_id} and update it!"
-    else:
-        return scenario_id
+    return render_template('add_scenario.html', scenario = scenario)
+# 
+# @app.route("/scenario/<scenario_id>", methods = ["GET", "POST"])
+# def single_scenario(scenario_id):
+    # if request.method == "POST":
+        # return f"get scenario {scenario_id} and update it!"
+    # else:
+        # return scenario_id
