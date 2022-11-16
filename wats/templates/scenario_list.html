@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1> {% block title %} List of all scenarios! {% endblock %}</h1>
-{% for scenario in scenarios_list %}
-<div class = "scenario">{{ scenario.name }}
-    <h3>expected: {{ scenario.expected }}</h3>
+<div></div>
+<div class="scenario-title">Scenariusze testowe</div>
+
+
+{% for scenario in scenarios %}
+<div class = "scenario">
+    <div class="scenario-information">
+        <div class="scenario-information-name">{{ scenario.name }}</div>
+        <div class="scenario-information-status">{{ scenario.expected }}</div>
+    </div>
     <div>
         {{ scenario.steps }}
     </div>
 </div>
 {% endfor %}
+
+
 
 {% endblock %}
