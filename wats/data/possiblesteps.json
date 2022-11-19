@@ -1,0 +1,80 @@
+{
+  "navigation": {
+    "go_to_url": {
+      "values": "https://poprawnyadres.com/",
+      "description": "Pozwala na przedostanie się na zdefiniowany URL"
+    },
+    "refresh": {
+      "values": "ilość (np. 5)",
+      "description": "pozwala na odświeżenie strony"
+    },
+    "back": {
+      "values": "ilość (np. 5)",
+      "description": "Pozwala na cofnięcie do poprzedniej strony o podaną ilość"
+    },
+    "forward": {
+      "values": "ilość, (np. 2)",
+      "description": "Pozwala na przejście do następnej strony w historii (wymaga uprzedniego 'cofnięcia')"
+    },
+    "wait": {
+      "values": "ilość w sekundach (np. 60 - minuta czekania)",
+      "description": "Pozwala na oczekiwanie danej ilości sekund"
+    },
+    "take_screenshot": {
+      "values": "name",
+      "description": "Pozwala na zrobienie zrzutu ekranu okna przeglądarki"
+    }
+  },
+  
+  "element_interactions": {
+    "click_element": {
+      "values": "XPATH, np. \"//*[@value='login']\"",
+      "description": "pozwala na naciśnięcie elementu (zlokalizowanego za pomocą wartości XPATH)"
+    },
+    "send_keys_to_element": {
+      "values": {
+        "locator": "XPATH, np. '//*[@value='login']'",
+        "text": "string"
+      },
+      "description": "pozwala na wysłanie tekstu do elementu (zlokalizowanego za pomocą wartości XPATH)"
+    },
+    "clear_element": {
+      "values": "XPATH, np. \"//*[@value='login']\"",
+      "description": "Czyści element (np input) z tekstu"
+    },
+    "choose_from_list": {
+      "values": {
+        "locator": "XPATH, np. '//*[@value='login']'",
+        "amount": "ilość wyborów",
+        "index/value/text": "index/value/text",
+        "elements": "indexy,wartości,albonazwytekstowe,dzielone,przecinkiem"
+      },
+      "description": "pozwala na wybór jednego lub więcej elementów z listy"
+    },
+    "click_enter": {
+      "values": "amount",
+      "description": "naciska przycisk Enter"
+    }
+  },
+  "asserts": {
+    "assert_title_has": {
+      "values": "Wartość zawarta w tytule, np 'oogle'.",
+      "description": "Potwierdza, czy w tytule strony na której się znaleźliśmy występuje podany ciąg znaków"
+    },
+    "assert_title_is": {
+      "values": "something",
+      "description": "Potwierdza, czy tytuł strony na której się znaleźliśmy to podany ciąg znaków"
+    },
+    "assert_element_exist": {
+      "values": "XPATH",
+      "description": "Potwierdza, czy na stronie znajduje się element którego XPATH zdefiniowaliśmy"
+    },
+    "assert_element_contains_string": {
+      "values": {
+        "locator": "XPATH",
+        "contains": "String"
+      },
+      "description": "Potwierdza najpierw czy element którego XPATH zdefiniowaliśmy istnieje, a potem czy zawiera podaną wartość tekstową"
+    }
+  }
+}

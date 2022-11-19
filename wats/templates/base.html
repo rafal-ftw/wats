@@ -6,15 +6,18 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <nav>
-        <a href="">Home</a>
-        <a href="">Execute Scenarios</a>
-        <a href="">Create Scenario</a>
-        <a href="#">About</a>
-    </nav>
-    <hr>
     <div class="content">
-        {% block content %} {% endblock %}
+        <div class="sidebar">
+            <nav>
+                <a href="logo">logo</a>
+                <a href="{{ url_for('scenario_list') }}"">Scenariusze</a>
+                <a href="{{ url_for('scenario_add') }}"">Stwórz scenariusz</a>
+                <a href="">O aplikacji</a>
+            </nav>
+        </div>
+        <div class="scenarios">
+            {% block content %} {% endblock %}
+        </div>
     </div>
 </body>
 </html>

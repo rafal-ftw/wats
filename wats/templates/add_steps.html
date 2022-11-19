@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> {% block title %}Add Steps to {{ scenario_details[0]}}{% endblock %}</h1>
+<h5> expected {{ scenario_details[1] }}</h5>
+<h6> author: {{ scenario_details[2] }}</h6>
+
+
+<form action="{{ url_for('add_steps') }}" method="post">
+
+<input type="hidden" id="steps_to_show" value="{{ step_names }}"/>
+
+
+    <div id = "scenario-creation-steps" class="scenario-creation-steps">
+        <div id="step">Add a step</div>
+
+        <script>
+            var nextId = 0;
+            var container = document.getElementById('scenario-creation-steps');
+            var add_step_button = document.getElementById('step');
+            var arr = document.querySelector('#steps_to_show').value.replace('[','').replace(']','').split(',');
+
+            function addLabel() {
+                var select = document.createElement("select");
+                
+                select.id = "step_" + nextId;
+                add_step_button.onclick = addLabel;
+
+                for (let i = 0; i < arr.length; i++) {
+                    let opt = document.createElement('option');
+                    opt.value = arr[i];
+                    opt.innerHTML = arr[i];
+                    select.appendChild(opt);
+                }
+                container.appendChild(select);
+                nextId += 1;
+            }
+
+            addLabel();
+
+        </script>
+    </div>
+
+    <div class="scenario-creation-submitbuttons">
+        <div></div>
+        <div></div>
+        <div></div>
+        <input type="button" value="pobierz dżejson">
+        <input type="submit" value="add_scenario">
+    </div>
+</form>
+
+<!-- 
+<script src="../static/add_steps.js" async>["---", "idz tu", "idz tam", "volvo"]</script> -->
+{% endblock %}

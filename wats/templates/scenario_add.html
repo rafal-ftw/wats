@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if scenario %}
+
+
+<h1>Scenario <strong>{{scenario.scenario_name}}</strong> has been added!</h1>
+<p>click <a href="/scenario_list">here</a> to see all scenarios</p>
+
+{% endif %}
+
+
+
+<h1> {% block title %} Scenario Creator {% endblock %}</h1>
+<form action="{{ url_for('scenario_add') }}" method="post">
+    
+    <div class = "scenario-creation-metadata">
+        <label for="name_id">Scenario name</label>
+        <input type="text" id = "name_id" name = "name_field" 
+        placeholder="scenario title" />
+        
+        <label for = "expected_id">Expected result</label>
+        <div>
+            <input type = "radio" id = "expected_id" name="expected_field" value="True"/>True
+                </div>
+        <div>
+            <input type = "radio" id = "expected_id" name="expected_field" value="False"/>False
+                </div>
+        <label for = "author_id">Author name</label>
+        <input id = "author_id" name = "author" type = "text" />
+    </div>
+
+    <div class = "scenario-creation-steps">
+        
+
+    </div>
+
+<div class = "scenario-creation-submitbuttons">
+    <div></div>
+    <div></div>
+    <div></div>
+    <input type = "submit" value="pobierz dżejson">
+    <input type = "submit" value="add_steps">
+</div>
+</form>
+{% endblock %}
