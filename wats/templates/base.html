@@ -10,7 +10,8 @@
         <div class="sidebar">
             <nav>
                 <a href="logo">logo</a>
-                <a href="">Scenariusze</a>
+                <a href="{{ url_for('scenario_list') }}"">Scenariusze</a>
+                <a href="{{ url_for('scenario_add') }}"">Stwórz scenariusz</a>
                 <a href="">O aplikacji</a>
             </nav>
         </div>

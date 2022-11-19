@@ -46,16 +46,15 @@ nav a {
 }
 form{
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 input[type=text] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    width: 25%;
+    padding: 5px;
+    margin: 4px;
     box-sizing: border-box;
 }
-
 
 .scenario-title{
     padding: 3%;
@@ -81,4 +80,15 @@ text-shadow: 1px, 1px;
 .scenario-information-status{
 font-size:1em;
 color:rgb(137, 137, 137)
+}
+
+.scenario-creation-metadata{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.scenario-creation-submitbuttons{
+    display: flex;
+    justify-content:space-around;
 }

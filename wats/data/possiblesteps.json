@@ -25,6 +25,7 @@
       "description": "Pozwala na zrobienie zrzutu ekranu okna przeglądarki"
     }
   },
+  
   "element_interactions": {
     "click_element": {
       "values": "XPATH, np. \"//*[@value='login']\"",
@@ -32,7 +33,7 @@
     },
     "send_keys_to_element": {
       "values": {
-        "locator": "XPATH, np. \"//*[@value='login']\"",
+        "locator": "XPATH, np. '//*[@value='login']'",
         "text": "string"
       },
       "description": "pozwala na wysłanie tekstu do elementu (zlokalizowanego za pomocą wartości XPATH)"
@@ -43,7 +44,7 @@
     },
     "choose_from_list": {
       "values": {
-        "locator": "XPATH, np. \"//*[@value='login']\"",
+        "locator": "XPATH, np. '//*[@value='login']'",
         "amount": "ilość wyborów",
         "index/value/text": "index/value/text",
         "elements": "indexy,wartości,albonazwytekstowe,dzielone,przecinkiem"

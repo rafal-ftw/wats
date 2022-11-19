@@ -36,15 +36,22 @@ class PossibleStep(db.Model):
     description = db.Column(db.Text)
     example_values = db.Column(db.Text)
 
-    def __init__(self, name, type, description, example_values):
+    def __init__(self, type, name, description, example_values):
         self.name = name
         self.type = type
         self.description = description
         self.example_values = example_values
 
+    def __repr__(self):
+        return str([self.id, self.type, self.name, self.description, self.example_values])
+
 
 def create_possible_step(type, name, description, example_values):
     possible_step = PossibleStep(type, name, description, example_values)
+    db.session.add(possible_step)
+    db.session.commit()
+
+    return possible_step
 
 
 def initiate_steps(data_path):
@@ -52,25 +59,48 @@ def initiate_steps(data_path):
     with open(data_path) as json_file:
         data = json.load(json_file)
 
-        print("Type: ", type(data))
-
         for category in data.keys():
             print("|__________________________________")
             print("|\n|\n|\n|TYPE:", category)
-            print("|\n|\n|values:")
+            print("|\n|\n|example_values:")
             for step in data[category]:
                 print("|name: ", step)
-                print("|values:", data[category][step]['values'])
+                print("|example_values:", data[category][step]['values'])
                 print("|description: %s \n|" % data[category][step]['description'])
             print("|\n|")
 
-            # TODO MAP TO STEPS INTO THE DATABASE
+        #     # TODO MAP TO STEPS INTO THE DATABASE
+
+        for i in data['navigation']:
+            type = 'navigation'
+            name = i
+            description = data['navigation'][i]['description']
+            example_values = data['navigation'][i]['values']
+            new_possible_step = create_possible_step(type, name, description, example_values)
+            print(new_possible_step)
+
+        for i in data['element_interactions']:
+            type = 'element_interactions'
+            name = i
+            description = data['element_interactions'][i]['description']
+            example_values = str(data['element_interactions'][i]['values'])
+            new_possible_step = create_possible_step(type, name, description, example_values)
+            print(new_possible_step)
+        
+        for i in data['asserts']:
+            type = 'asserts'
+            name = i
+            description = data['asserts'][i]['description']
+            example_values = str(data['asserts'][i]['values'])
+            new_possible_step = create_possible_step(type, name, description, example_values)
+            print(new_possible_step)
+        
 
 
 if __name__ == "__main__":
     with app.app_context():
         print("Creating database tables..")
-        # db.create_all()
+        db.create_all()
         print("Done!")
         print("Loading initial data")
         initiate_steps(os.getcwd() + "/data/possiblesteps.json")

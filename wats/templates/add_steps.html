@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> {% block title %}Add Steps to {{ scenario_details[0]}}{% endblock %}</h1>
+<h5> expected {{ scenario_details[1] }}</h5>
+<h6> author: {{ scenario_details[2] }}</h6>
+
+
+<form action="{{ url_for('add_steps') }}" method="post">
+    
+    <div class="scenario-creation-steps">
+        <div id="step">Add a step</div>
+    </div>
+
+    <div class="scenario-creation-submitbuttons">
+        <div></div>
+        <div></div>
+        <div></div>
+        <input type="button" value="pobierz dżejson">
+        <input type="submit" value="add_scenario">
+    </div>
+</form>
+
+<script src = "../static/add_steps.js" async></script>
+{% endblock %}
