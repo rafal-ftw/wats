@@ -1,12 +1,12 @@
 
 var nextId = 0;
-container = document.getElementById('step');
+let container = document.getElementById('step');
 let arr = ["---","idz tu", "idz tam", "volvo"] ;
 
 function addLabel() {
     var d = document.createElement("select");
     d.id = "step" + nextId;
-    d.onchange = addLabel;
+    d.onclick = addLabel;
     for (let i = 0; i < arr.length; i++){
         let opt = document.createElement('option');
         opt.value = arr[i];

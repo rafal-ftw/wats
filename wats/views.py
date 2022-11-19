@@ -20,6 +20,11 @@ def scenario_add():
 
     steps = PossibleStep.query.all()
 
+    step_names = []
+    for i in steps:
+        step_names.append(i.name)
+    
+
     if request.method == "GET":
         return render_template('scenario_add.html', steps = steps)
 
@@ -30,14 +35,20 @@ def scenario_add():
     
     scenario_details = [scenario_name, scenario_expected, scenario_author]
 
-    return render_template('add_steps.html', scenario_details = scenario_details, steps = steps)
+    return render_template('add_steps.html', scenario_details = scenario_details, step_names = step_names)
 
 @app.route("/add_steps", methods = ["GET", "POST"])
-def add_steps(scenario_details = None, steps = None):
+def add_steps(scenario_details = None):
+
+    steps = PossibleStep.query.all()
+    
+    step_names = []
+    for i in steps:
+        step_names.append(i.name)
     
     if request.method == "GET":
         return (render_template('scenario_list.html')) #TODO 404
 
     if request.method == "POST" and len(scenario_details) == 3:
-        return render_template('add_steps.html', metadata = scenario_details, steps = steps)
+        return render_template('add_steps.html', scenario_details = scenario_details, step_names = step_names)
     
