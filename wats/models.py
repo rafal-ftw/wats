@@ -69,7 +69,6 @@ def initiate_steps(data_path):
                 print("|description: %s \n|" % data[category][step]['description'])
             print("|\n|")
 
-        #     # TODO MAP TO STEPS INTO THE DATABASE
 
         for i in data['navigation']:
             type = 'navigation'

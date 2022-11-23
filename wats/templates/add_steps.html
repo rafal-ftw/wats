@@ -2,43 +2,23 @@
 
 {% block content %}
 <h1> {% block title %}Add Steps to {{ scenario_details[0]}}{% endblock %}</h1>
-<h5> expected {{ scenario_details[1] }}</h5>
-<h6> author: {{ scenario_details[2] }}</h6>
-
-
+<script src="../static/ScenarioCreation.js"></script>
 <form action="{{ url_for('add_steps') }}" method="post">
 
-<input type="hidden" id="steps_to_show" value="{{ step_names }}"/>
+    <input type="hidden" id="steps_to_show" value="{{ step_names }}" />
+    <input type="hidden" id="steps_to_show" value="{{ step_names }}" />
 
 
-    <div id = "scenario-creation-steps" class="scenario-creation-steps">
-        <div id="step">Add a step</div>
 
-        <script>
-            var nextId = 0;
-            var container = document.getElementById('scenario-creation-steps');
-            var add_step_button = document.getElementById('step');
-            var arr = document.querySelector('#steps_to_show').value.replace('[','').replace(']','').split(',');
+    <div class="scenario-creation-metadata">
+        <p> expected: {{ scenario_details[1] }}</p>
+        <p> author: {{ scenario_details[2] }}</p>
+    </div>
 
-            function addLabel() {
-                var select = document.createElement("select");
-                
-                select.id = "step_" + nextId;
-                add_step_button.onclick = addLabel;
 
-                for (let i = 0; i < arr.length; i++) {
-                    let opt = document.createElement('option');
-                    opt.value = arr[i];
-                    opt.innerHTML = arr[i];
-                    select.appendChild(opt);
-                }
-                container.appendChild(select);
-                nextId += 1;
-            }
-
-            addLabel();
-
-        </script>
+    <div id="scenario-creation-table" class="scenario-creation-table">
+        <button type="button" id="add_step">Add a step</button>
+        <!-- tu wchodzą kroki do wybrania-->
     </div>
 
     <div class="scenario-creation-submitbuttons">
@@ -50,6 +30,52 @@
     </div>
 </form>
 
-<!-- 
-<script src="../static/add_steps.js" async>["---", "idz tu", "idz tam", "volvo"]</script> -->
+
+
+
+
+<script>
+    var scenario_creation_table = document.getElementById('scenario-creation-table');
+    var add_step_button = document.getElementById('add_step');
+    var steps_arr = document.querySelector('#steps_to_show').value.replace('[', '').replace(']', '').replaceAll(' ', '').replaceAll("'", '').split(',');
+        // STEPS_ARR AS KEY, VALUES IN POLISH
+    var elements = [];
+
+
+    var nextId = 0;
+    function addStep() {
+        // container
+        var step_container = document.createElement("div");
+        step_container.className = "scenario-creation-step"
+        step_container.id = "step_" + nextId;
+        
+        // creates new select
+        add_step_button.onclick = addStep;
+
+        // new select is being created
+        var select = document.createElement("select");
+        select.id = "select_" + nextId;
+
+        // adding options to a select
+        for (let i = 0; i < steps_arr.length; i++) {
+            let opt = document.createElement('option');
+            opt.value = steps_arr[i];
+            opt.innerHTML = steps_arr[i];
+            select.appendChild(opt);
+        }
+        // adding select and container to a document
+        scenario_creation_table.appendChild(step_container);
+        step_container.appendChild(select);
+
+        // next run
+        nextId += 1;
+
+        // I want to log the value of this select when it changes
+        select.onchange = setPossibleSteps;
+    }
+
+    addStep();
+
+
+</script>
 {% endblock %}
