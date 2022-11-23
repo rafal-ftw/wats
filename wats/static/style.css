@@ -124,6 +124,20 @@ color:rgb(137, 137, 137)
 
     margin:10px;
 }
+.scenario-creation-step-settings{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 80%;
+    margin: 0px 50px 10px 50px;
+}
+.scenario-creation-step-settings_clickenter{
+    display: flex;
+    justify-content:end;
+    flex-direction: row;
+    width: 80%;
+    margin: 0px 50px 10px 50px;
+}
 
 .scenario-creation-submitbuttons{
     display: flex;

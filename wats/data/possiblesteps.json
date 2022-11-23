@@ -25,7 +25,6 @@
       "description": "Pozwala na zrobienie zrzutu ekranu okna przeglądarki"
     }
   },
-  
   "element_interactions": {
     "click_element": {
       "values": "XPATH, np. \"//*[@value='login']\"",
