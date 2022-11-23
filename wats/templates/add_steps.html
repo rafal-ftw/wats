@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1> {% block title %}Add Steps to {{ scenario_details[0]}}{% endblock %}</h1>
+<script src="../static/ScenarioCreation.js"></script>
 <form action="{{ url_for('add_steps') }}" method="post">
 
     <input type="hidden" id="steps_to_show" value="{{ step_names }}" />
@@ -34,33 +35,47 @@
 
 
 <script>
-    var nextId = 0;
     var scenario_creation_table = document.getElementById('scenario-creation-table');
     var add_step_button = document.getElementById('add_step');
-    var arr = document.querySelector('#steps_to_show').value.replace('[', '').replace(']', '').split(',');
+    var steps_arr = document.querySelector('#steps_to_show').value.replace('[', '').replace(']', '').replaceAll(' ', '').replaceAll("'", '').split(',');
+        // STEPS_ARR AS KEY, VALUES IN POLISH
+    var elements = [];
 
+
+    var nextId = 0;
     function addStep() {
+        // container
         var step_container = document.createElement("div");
         step_container.className = "scenario-creation-step"
-
-        var select = document.createElement("select");
-        select.id = "step_" + nextId;
-
+        step_container.id = "step_" + nextId;
+        
+        // creates new select
         add_step_button.onclick = addStep;
 
+        // new select is being created
+        var select = document.createElement("select");
+        select.id = "select_" + nextId;
 
-        for (let i = 0; i < arr.length; i++) {
+        // adding options to a select
+        for (let i = 0; i < steps_arr.length; i++) {
             let opt = document.createElement('option');
-            opt.value = arr[i];
-            opt.innerHTML = arr[i];
+            opt.value = steps_arr[i];
+            opt.innerHTML = steps_arr[i];
             select.appendChild(opt);
         }
+        // adding select and container to a document
         scenario_creation_table.appendChild(step_container);
         step_container.appendChild(select);
+
+        // next run
         nextId += 1;
+
+        // I want to log the value of this select when it changes
+        select.onchange = setPossibleSteps;
     }
 
     addStep();
+
 
 </script>
 {% endblock %}
