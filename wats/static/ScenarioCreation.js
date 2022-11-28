@@ -14,6 +14,7 @@ function setPossibleSteps(e) {
             settings.className = 'scenario-creation-step-settings'
 
             var val_input = document.createElement('input');
+            val_input.setAttribute('data', 'url');
             val_input.placeholder = 'https://poprawnyadres.com/';
 
             var emptydiv = document.createElement('div');
@@ -44,6 +45,7 @@ function setPossibleSteps(e) {
             settings.className = 'scenario-creation-step-settings';
 
             var val_input = document.createElement('input');
+            val_input.setAttribute('data', 'amount');
             val_input.defaultValue = 'ilość (np. 5)';
 
             var hint = document.createElement('div');
@@ -66,6 +68,7 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.defaultValue = 'ilość (np. 5)';
+            val_input.setAttribute('data', 'amount');
 
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -87,6 +90,7 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.defaultValue = 'ilość (np. 5)';
+            val_input.setAttribute('data', 'amount');
 
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -108,6 +112,7 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.defaultValue = 'ilość w sekundach (np. 60 - minuta czekania)';
+            val_input.setAttribute('data', 'amount');
 
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -129,6 +134,8 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.defaultValue = 'nazwa-zrzutu-ekranu';
+            val_input.setAttribute('data', 'name');
+
 
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -152,6 +159,7 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.placeholder = "XPATH, np. '//*[@value='login']'";
+            val_input.setAttribute('data', 'xpath');
 
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -173,8 +181,11 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.defaultValue = "XPATH, np. '//*[@value='login']'";
+            val_input.setAttribute('data', 'xpath');
+
             var keys_to_send = document.createElement('input');
             keys_to_send.placeholder = 'wartość tekstowa do wyslania';
+            keys_to_send.setAttribute('data', 'keysToSend');
 
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -197,6 +208,7 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.defaultValue = "XPATH, np. '//*[@value='login']'";
+            val_input.setAttribute('data', 'xpath');
             
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -218,12 +230,15 @@ function setPossibleSteps(e) {
 
             var locator = document.createElement('input');
             locator.placeholder = "XPATH, np. '//*[@value='login']'";
+            locator.setAttribute('data', 'xpath');
             
             var type = document.createElement('input');
             type.placeholder = "index/value/text";
+            type.setAttribute('data', 'type');
 
             var values = document.createElement('input');
             values.placeholder = "wartosci,dzielone,przecinkiem";
+            values.setAttribute('data', 'values');
 
 
             var hint = document.createElement('div');
@@ -245,6 +260,7 @@ function setPossibleSteps(e) {
             var settings = document.createElement('div');
             settings.id = 'settings';
             settings.className = 'scenario-creation-step-settings_clickenter';
+
             
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -255,7 +271,6 @@ function setPossibleSteps(e) {
             settings.append(hint);
             break;
 
-            // asserts
         case 'assert_title_has':
             removeSettings(step_container)
             
@@ -265,6 +280,7 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.placeholder = "np. WATS | Scenario Creator";
+            val_input.setAttribute('data', 'string');
             
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -286,6 +302,7 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.placeholder = "np. WATS | Scenario Creator";
+            val_input.setAttribute('data', 'string');
             
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -306,6 +323,7 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.placeholder = "XPATH";
+            val_input.setAttribute('data', 'xpath');
             
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -327,9 +345,11 @@ function setPossibleSteps(e) {
 
             var locator = document.createElement('input');
             locator.placeholder = "XPATH";
+            locator.setAttribute('data', 'xpath');
 
             var val_input = document.createElement('input');
             val_input.placeholder = "jakas wartosc";
+            val_input.setAttribute('data', 'string');
             
             var hint = document.createElement('div');
             hint.id = e.target.id + '-hint';
@@ -357,4 +377,35 @@ function removeSettings(parent) {
         console.log('no tag with id settings')
     }
 
+}
+
+function downloadJson(e){
+
+    const steps = Array.from(document.getElementsByClassName('scenario-creation-step'));
+    const data = {};
+
+
+    for (const c in steps){
+
+        
+        var currentStep_dict = {};
+        currentStep_dict['function'] = steps[c].childNodes[0].value;
+        
+        let inputs = Array.from(steps[c].childNodes[1].getElementsByTagName('input'));
+        
+        var values = {};
+        for (const i in inputs){
+
+            console.log('input data ' + inputs[i].getAttribute('data'));
+            console.log('input value ' + inputs[i].getAttribute('value'));
+            
+            values[inputs[i].getAttribute('data')] = inputs[i].getAttribute('value');
+        }
+        currentStep_dict['values'] = values;
+
+    
+        data[c] = currentStep_dict;
+    } 
+
+    console.log(data)
 }

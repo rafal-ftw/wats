@@ -3,9 +3,11 @@
 {% block content %}
 <h1> {% block title %}Add Steps to {{ scenario_details[0]}}{% endblock %}</h1>
 <script src="../static/ScenarioCreation.js"></script>
-<form action="{{ url_for('add_steps') }}" method="post">
+<form action="{{ url_for('full_scenario') }}" method="post">
 
-    <input type="hidden" id="steps_to_show" value="{{ step_names }}" />
+    <input type="hidden" id = "scenario_name" value="{{ scenario_details[0] }}"/>
+    <input type="hidden" id = "expected" value = "{{ scenario_details[1] }}" />
+    <input type="hidden" id = "author_id" value = "{{ scenario_details[2] }}" />
     <input type="hidden" id="steps_to_show" value="{{ step_names }}" />
 
 
@@ -25,8 +27,8 @@
         <div></div>
         <div></div>
         <div></div>
-        <input type="button" value="pobierz dżejson">
-        <input type="submit" value="add_scenario">
+        <input type="button" id="download_json" value="Pobierz scenariusz">
+        <input type="submit" value="Dodaj Scenariusz">
     </div>
 </form>
 
@@ -37,45 +39,38 @@
 <script>
     var scenario_creation_table = document.getElementById('scenario-creation-table');
     var add_step_button = document.getElementById('add_step');
-    var steps_arr = document.querySelector('#steps_to_show').value.replace('[', '').replace(']', '').replaceAll(' ', '').replaceAll("'", '').split(',');
-        // STEPS_ARR AS KEY, VALUES IN POLISH
+    var steps_arr = document.querySelector('#steps_to_show').value.replace('[', '').replace(']', '').replaceAll(' ', '').replaceAll("'", '').split(',');    
     var elements = [];
-
 
     var nextId = 0;
     function addStep() {
-        // container
         var step_container = document.createElement("div");
         step_container.className = "scenario-creation-step"
         step_container.id = "step_" + nextId;
         
-        // creates new select
         add_step_button.onclick = addStep;
 
-        // new select is being created
         var select = document.createElement("select");
+        select.className = 'scenario-creation-select';
         select.id = "select_" + nextId;
 
-        // adding options to a select
         for (let i = 0; i < steps_arr.length; i++) {
             let opt = document.createElement('option');
             opt.value = steps_arr[i];
             opt.innerHTML = steps_arr[i];
             select.appendChild(opt);
         }
-        // adding select and container to a document
         scenario_creation_table.appendChild(step_container);
         step_container.appendChild(select);
 
-        // next run
         nextId += 1;
 
-        // I want to log the value of this select when it changes
         select.onchange = setPossibleSteps;
     }
 
     addStep();
 
+    document.getElementById('download_json').onclick = downloadJson;
 
 </script>
 {% endblock %}
