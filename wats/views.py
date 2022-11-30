@@ -1,8 +1,8 @@
-from flask import render_template, request
+from flask import render_template, request, Response
 
 from models import Scenario, PossibleStep, create_scenario
 from app import app
-
+import pprint
 
 @app.route("/")
 def index():
@@ -38,16 +38,18 @@ def scenario_add():
     return render_template('add_steps.html', scenario_details = scenario_details, step_names = step_names)
 
 @app.route("/scenario_added", methods = ["GET", "POST"])
-def full_scenario(scenario_details = None):
+def scenario_added():
 
     if request.method == "GET":
         return '<h6>bad request, it was get for /scenario_added</h6>' #TODO 404
 
+    print(request.form.keys())
+    print(request.form.items())
+    scenario_data = request.form
+    return render_template('scenario_added.html', data = scenario_data)
 
-    if (request.headers.get('Content-Type') == 'application/json'):
-        
-        
-        
-        json = request.json
-        return render_template('scenario_added.html', scenario_details = scenario_details, data=json)
+@app.route("/scenario_add_test", methods = ["GET", "POST"])
+def scenario_add_test():
 
+    print(request.get_json())
+    return 'redirected at test'
