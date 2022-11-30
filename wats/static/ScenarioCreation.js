@@ -397,7 +397,7 @@ function downloadJson(e){
         for (const i in inputs){
 
             console.log('input data ' + inputs[i].getAttribute('data'));
-            console.log('input value ' + inputs[i].getAttribute('value'));
+            console.log('input value ' + inputs[i].value);
             
             values[inputs[i].getAttribute('data')] = inputs[i].getAttribute('value');
         }
@@ -407,5 +407,5 @@ function downloadJson(e){
         data[c] = currentStep_dict;
     } 
 
-    console.log(data)
+    console.log(data.type)
 }
