@@ -3,11 +3,12 @@
 {% block content %}
 <h1> {% block title %}Add Steps to {{ scenario_details[0]}}{% endblock %}</h1>
 <script src="../static/ScenarioCreation.js"></script>
-<form  name="scenarioForm" onsubmit="printSuccess()">
+<!-- <form  name="scenarioForm" onsubmit="printSuccess()"> -->
+<form  name="scenarioForm" onsubmit="return false;">
 
     <input type="hidden" id="scenario_name" value="{{ scenario_details[0] }}" />
     <input type="hidden" id="expected" value="{{ scenario_details[1] }}" />
-    <input type="hidden" id="author_id" value="{{ scenario_details[2] }}" />
+    <input type="hidden" id="author_name" value="{{ scenario_details[2] }}" />
     <input type="hidden" id="steps_to_show" value="{{ step_names }}" />
 
 
@@ -77,7 +78,13 @@
 
         const steps = Array.from(document.getElementsByClassName('scenario-creation-step'));
         const data = {};
+        const bodyDict = {};
 
+
+        bodyDict['scenario_name'] = document.getElementById('scenario_name').value;
+        bodyDict['expected'] = document.getElementById('expected').value;
+        bodyDict['author_name'] = document.getElementById('author_name').value;
+        
 
         for (const c in steps) {
 
@@ -93,11 +100,15 @@
             }
             currentStep_dict['values'] = values;
 
-            data[c] = currentStep_dict;
+            data["step" + c] = currentStep_dict;
+            
         }
 
-        var dataJson = JSON.stringify(data);
-        console.log(dataJson);
+        bodyDict['steps'] = data;
+
+
+        var requestBody = JSON.stringify(bodyDict);
+        console.log(bodyDict);
 
         fetch(window.location.href + '_test',
             {
@@ -105,7 +116,7 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: dataJson,
+                body: requestBody,
             }
         );
     }

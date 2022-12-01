@@ -51,5 +51,11 @@ def scenario_added():
 @app.route("/scenario_add_test", methods = ["GET", "POST"])
 def scenario_add_test():
 
-    print(request.get_json())
+    data = request.get_json()
+    
+    print(data)
+    for key in data:
+        print(data[key])
+    
+    
     return 'redirected at test'
