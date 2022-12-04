@@ -41,6 +41,7 @@
     var scenario_creation_table = document.getElementById('scenario-creation-table');
     var add_step_button = document.getElementById('add_step');
     var steps_arr = document.querySelector('#steps_to_show').value.replace('[', '').replace(']', '').replaceAll(' ', '').replaceAll("'", '').split(',');
+    steps_arr.splice(0,0," --- ");
     var elements = [];
 
     var nextId = 0;
@@ -71,11 +72,9 @@
 
     addStep();
 
-    document.getElementById('download_json').onclick = downloadJson;
 
 
     function submitScenario() {
-
         const steps = Array.from(document.getElementsByClassName('scenario-creation-step'));
         const data = {};
         const bodyDict = {};
@@ -106,9 +105,7 @@
 
         bodyDict['steps'] = data;
 
-
         var requestBody = JSON.stringify(bodyDict);
-        console.log(bodyDict);
 
         fetch(window.location.href + '_test',
             {

@@ -20,7 +20,7 @@ html, body{
 .sidebar{
     width:20%;
 }
-.scenarios{
+.application{
     width: 80%;
     border: 1px solid yellow;
     outline-style: solid;
