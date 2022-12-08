@@ -9,7 +9,7 @@ class Scenario(db.Model):
     name = db.Column(db.String(255))
     expected = db.Column(db.String(50))
     steps = db.Column(db.Text)
-    author = db.String(db.String(255))
+    author = db.Column(db.String(255))
 
     def __init__(self, name, expected, steps, author):
         self.name = name

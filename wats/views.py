@@ -51,12 +51,13 @@ def scenario_added():
     return render_template('scenario_added.html', data=scenario_data)
 
 
-@app.route("/scenario_add_test", methods=["GET", "POST"])
+@app.route("/scenario_add_test", methods=["POST"])
 def scenario_add_test():
 
     data = request.get_json()
 
-    print(data)
+
+    # TODO add logging
     for key in data:
         print(f'{datetime.now()} - {key}', f'| data : {data[key]}\n\n')
 
@@ -69,4 +70,13 @@ def scenario_add_test():
     print('scenario has been added!')
     print(created_scenario)
 
-    return 'redirected at test'
+
+@app.route("/execute", methods=["POST","GET"])
+def execute():
+
+    if request.method == "GET":
+        return render_template('executed_scenarios.html')
+
+    print(request.get_json())
+
+

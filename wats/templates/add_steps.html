@@ -3,8 +3,7 @@
 {% block content %}
 <h1> {% block title %}Add Steps to {{ scenario_details[0]}}{% endblock %}</h1>
 <script src="../static/ScenarioCreation.js"></script>
-<!-- <form  name="scenarioForm" onsubmit="printSuccess()"> -->
-<form  name="scenarioForm" onsubmit="return false;">
+<form  name="scenarioForm" onsubmit="printSuccess()">
 
     <input type="hidden" id="scenario_name" value="{{ scenario_details[0] }}" />
     <input type="hidden" id="expected" value="{{ scenario_details[1] }}" />
@@ -116,10 +115,12 @@
                 body: requestBody,
             }
         );
+
     }
 
     function printSuccess(){
-        alert("Scenario has been added succesfully!")
+        alert("Scenario has been added succesfully!");
+        window.location.assign('localhost:5000')
     }
 
 </script>
