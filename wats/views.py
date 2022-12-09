@@ -1,7 +1,8 @@
 from datetime import datetime
 from flask import render_template, request, Response
 
-from models import Scenario, PossibleStep, create_scenario
+from models import Scenario, PossibleStep, create_scenario, Execution, create_execution
+from engine import start_execution
 from app import app
 
 
@@ -77,6 +78,10 @@ def execute():
     if request.method == "GET":
         return render_template('executed_scenarios.html')
 
-    print(request.get_json())
+    data = request.get_json()
 
+    execution = create_execution(data['name'], data['expected'], data['author'], data['steps'])
 
+    start_execution(execution)
+
+    return data
