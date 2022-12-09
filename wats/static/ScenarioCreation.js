@@ -363,6 +363,10 @@ function setPossibleSteps(e) {
             settings.append(hint);
             break;
 
+        case ' --- ':
+            removeSettings(step_container);
+            break;
+
         }
 }
 

@@ -1,5 +1,7 @@
 import os
 import json
+from datetime import datetime
+
 from app import *
 
 
@@ -9,7 +11,7 @@ class Scenario(db.Model):
     name = db.Column(db.String(255))
     expected = db.Column(db.String(50))
     steps = db.Column(db.Text)
-    author = db.String(db.String(255))
+    author = db.Column(db.String(255))
 
     def __init__(self, name, expected, steps, author):
         self.name = name
@@ -45,6 +47,32 @@ class PossibleStep(db.Model):
     def __repr__(self):
         return str([self.id, self.type, self.name, self.description, self.example_values])
 
+class Execution(db.Model):
+    __tablename__ = 'execution'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    expected = db.Column(db.String(50))
+    steps = db.Column(db.Text)
+    author = db.Column(db.String(255))
+    logs = db.Column(db.Text)
+
+    def __init__(self, name, expected, steps, author):
+        self.name = name
+        self.expected = expected
+        self.author = author
+        self.steps = steps
+
+
+def create_execution(name, expected, author, steps):
+    execution = Execution(name, expected, steps, author)
+    db.session.add(execution)
+    db.session.commit()
+
+    return execution
+
+def log_to_execution(execution, log):
+    execution.logs = str(execution.logs) + f"\n {datetime.now()} - {log}"
+    db.session.commit()
 
 def create_possible_step(type, name, description, example_values):
     possible_step = PossibleStep(type, name, description, example_values)

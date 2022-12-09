@@ -12,10 +12,10 @@
                 <img alt = "logo" src="../static/logo.png"/>
                 <a href="{{ url_for('scenario_list') }}"">Scenariusze</a>
                 <a href="{{ url_for('scenario_add') }}"">Stwórz scenariusz</a>
-                <a href="">O aplikacji</a>
+                <a href="{{ url_for('index') }}">O aplikacji</a>
             </nav>
         </div>
-        <div class="scenarios">
+        <div class="application">
             {% block content %} {% endblock %}
         </div>
     </div>

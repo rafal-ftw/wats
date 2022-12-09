@@ -7,7 +7,7 @@
 
     <input type="hidden" id="scenario_name" value="{{ scenario_details[0] }}" />
     <input type="hidden" id="expected" value="{{ scenario_details[1] }}" />
-    <input type="hidden" id="author_id" value="{{ scenario_details[2] }}" />
+    <input type="hidden" id="author_name" value="{{ scenario_details[2] }}" />
     <input type="hidden" id="steps_to_show" value="{{ step_names }}" />
 
 
@@ -40,6 +40,7 @@
     var scenario_creation_table = document.getElementById('scenario-creation-table');
     var add_step_button = document.getElementById('add_step');
     var steps_arr = document.querySelector('#steps_to_show').value.replace('[', '').replace(']', '').replaceAll(' ', '').replaceAll("'", '').split(',');
+    steps_arr.splice(0,0," --- ");
     var elements = [];
 
     var nextId = 0;
@@ -70,14 +71,18 @@
 
     addStep();
 
-    document.getElementById('download_json').onclick = downloadJson;
 
 
     function submitScenario() {
-
         const steps = Array.from(document.getElementsByClassName('scenario-creation-step'));
         const data = {};
+        const bodyDict = {};
 
+
+        bodyDict['scenario_name'] = document.getElementById('scenario_name').value;
+        bodyDict['expected'] = document.getElementById('expected').value;
+        bodyDict['author_name'] = document.getElementById('author_name').value;
+        
 
         for (const c in steps) {
 
@@ -93,11 +98,13 @@
             }
             currentStep_dict['values'] = values;
 
-            data[c] = currentStep_dict;
+            data["step" + c] = currentStep_dict;
+            
         }
 
-        var dataJson = JSON.stringify(data);
-        console.log(dataJson);
+        bodyDict['steps'] = data;
+
+        var requestBody = JSON.stringify(bodyDict);
 
         fetch(window.location.href + '_test',
             {
@@ -105,13 +112,15 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: dataJson,
+                body: requestBody,
             }
         );
+
     }
 
     function printSuccess(){
-        alert("Scenario has been added succesfully!")
+        alert("Scenario has been added succesfully!");
+        window.location.assign('localhost:5000')
     }
 
 </script>

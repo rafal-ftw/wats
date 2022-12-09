@@ -1,22 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div></div>
-<div class="scenario-title">Scenariusze testowe</div>
+<script src="../static/ScenarioOperations.js"></script>
+<div class="scenario-list-container">
+    
+    
+    <h2>{% block title %}Scenariusze testowe{% endblock %}</h2>
 
 
-{% for scenario in scenarios %}
-<div class = "scenario">
-    <div class="scenario-information">
-        <div class="scenario-information-name">{{ scenario.name }}</div>
-        <div class="scenario-information-status">{{ scenario.expected }}</div>
+    {% for scenario in scenarios %}
+    <div id="scenario-list-item" class="scenario-list-item">
+
+        <div id="scenario-information" class="scenario-information">
+            <div class="scenario-information-select">
+                <label for="selected">wykonaj</label>
+                <input id="selected" type="checkbox">
+            </div>
+            <div class="scenario-information-details">
+                <div class="scenario-information-details-name" value="{{ scenario.name }}">Nazwa scenariusza: {{
+                    scenario.name }}</div>
+                <div class="scenario-information-details-expected" value="{{ scenario.expected }}">Spodziewany wynik: {{
+                    scenario.expected }}</div>
+                <div class="scenario-information-details-author" value="{{ scenario.author }}">Autor: {{ scenario.author
+                    }}</div>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <button class="scenario-information-steps" data="{{ scenario.steps }}">Wyświetl kroki</button>
     </div>
-    <div>
-        {{ scenario.steps }}
-    </div>
-</div>
-{% endfor %}
+    {% endfor %}
 
+    <button style="width:20%;justify-content: center;" onclick="gatherScenariosToExecution()">Wykonaj wybrane
+        scenariusze</button>
+
+    </div>
 
 
 {% endblock %}
