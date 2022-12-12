@@ -71,6 +71,8 @@ def scenario_add_test():
     print('scenario has been added!')
     print(created_scenario)
 
+    return created_scenario
+
 
 @app.route("/execute", methods=["POST","GET"])
 def execute():

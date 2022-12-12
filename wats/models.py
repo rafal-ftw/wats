@@ -54,6 +54,7 @@ class Execution(db.Model):
     expected = db.Column(db.String(50))
     steps = db.Column(db.Text)
     author = db.Column(db.String(255))
+    status = db.Column(db.String(64), default = "Started")
     logs = db.Column(db.Text)
 
     def __init__(self, name, expected, steps, author):

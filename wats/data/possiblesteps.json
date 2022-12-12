@@ -8,21 +8,9 @@
       "values": "ilość (np. 5)",
       "description": "pozwala na odświeżenie strony"
     },
-    "back": {
-      "values": "ilość (np. 5)",
-      "description": "Pozwala na cofnięcie do poprzedniej strony o podaną ilość"
-    },
-    "forward": {
-      "values": "ilość, (np. 2)",
-      "description": "Pozwala na przejście do następnej strony w historii (wymaga uprzedniego 'cofnięcia')"
-    },
     "wait": {
       "values": "ilość w sekundach (np. 60 - minuta czekania)",
       "description": "Pozwala na oczekiwanie danej ilości sekund"
-    },
-    "take_screenshot": {
-      "values": "name",
-      "description": "Pozwala na zrobienie zrzutu ekranu okna przeglądarki"
     }
   },
   "element_interactions": {
@@ -49,10 +37,6 @@
         "elements": "indexy,wartości,albonazwytekstowe,dzielone,przecinkiem"
       },
       "description": "pozwala na wybór jednego lub więcej elementów z listy"
-    },
-    "click_enter": {
-      "values": "amount",
-      "description": "naciska przycisk Enter"
     }
   },
   "asserts": {
@@ -74,6 +58,10 @@
         "contains": "String"
       },
       "description": "Potwierdza najpierw czy element którego XPATH zdefiniowaliśmy istnieje, a potem czy zawiera podaną wartość tekstową"
+    },
+    "assert_string_exists": {
+      "values": "string",
+      "description": "Potwierdza, czy na stronie znajduje się element którego XPATH zdefiniowaliśmy"
     }
   }
 }
