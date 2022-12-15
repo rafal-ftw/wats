@@ -41,6 +41,7 @@
     var add_step_button = document.getElementById('add_step');
     var steps_arr = document.querySelector('#steps_to_show').value.replace('[', '').replace(']', '').replaceAll(' ', '').replaceAll("'", '').split(',');
     steps_arr.splice(0,0," --- ");
+    steps_arr.splice(8,0," --- ");
     var elements = [];
 
     var nextId = 0;

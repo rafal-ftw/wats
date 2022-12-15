@@ -22,9 +22,6 @@ function gatherScenariosToExecution() {
 
             sendForExecution(dataDict)
         }
-
-
-
     }
 
 }
