@@ -363,6 +363,28 @@ function setPossibleSteps(e) {
             settings.append(hint);
             break;
 
+        case 'assert_string_exists':
+            removeSettings(step_container)
+            
+            var settings = document.createElement('div');
+            settings.id = 'settings';
+            settings.className = 'scenario-creation-step-settings';
+
+            var val_input = document.createElement('input');
+            val_input.placeholder = "string";
+            val_input.setAttribute('data', 'string');
+            
+            var hint = document.createElement('div');
+            hint.id = e.target.id + '-hint';
+            hint.className = 'hint'
+            hint.setAttribute('hover-data', 'Potwierdza, czy na stronie znajduje się element którego XPATH zdefiniowaliśmy');
+            hint.innerHTML = 'BUTTON';
+
+            step_container.append(settings);
+            settings.append(val_input);
+            settings.append(hint);
+            break;
+
         case ' --- ':
             removeSettings(step_container);
             break;
