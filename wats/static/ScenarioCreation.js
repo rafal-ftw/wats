@@ -46,7 +46,7 @@ function setPossibleSteps(e) {
 
             var val_input = document.createElement('input');
             val_input.setAttribute('data', 'amount');
-            val_input.defaultValue = 'ilość (np. 5)';
+            val_input.defaultValue = '1';
             val_input.setAttribute('hidden', 'true');
 
             var hint = document.createElement('div');
