@@ -63,9 +63,9 @@ def run_action(test, function, values):
 
         case "send_keys_to_element":
             xpath = values['xpath']
-            send_value = values['string']
+            send_value = values['keysToSend']
             try:
-                test.driver.find_element(By.XPATH, xpath).click()
+                test.driver.find_element(By.XPATH, xpath).send_keys(send_value)
             except Exception as e:
                 print(e)
 
@@ -93,8 +93,34 @@ def run_action(test, function, values):
             except Exception as e:
                 print(e)
 
+        case "assert_title_is":
+            string = values['string']
 
+            try:
+                title = test.driver.title
 
+                if title == string:
+                    print(f"title is {string}")
+                    test.flag = True
+                else:
+                    test.flag = False
+            except Exception as e:
+                print(e)
+
+        
+        case "assert_title_has":
+            string = values['string']
+
+            try:
+                title = test.driver.title
+
+                if string in title:
+                    print(f"title is {string}")
+                    test.flag = True
+                else:
+                    test.flag = False
+            except Exception as e:
+                print(e)
 
         case "assert_string_exists":
             source = test.driver.page_source
@@ -111,7 +137,7 @@ def run_action(test, function, values):
 
 
         case _:
-            print("No case yet")
+            print("there has been an error in step function parsing!")
 
 
 
