@@ -87,3 +87,8 @@ def execute():
     start_execution(execution)
 
     return data
+
+@app.route("/history", methods=["GET"])
+def history():
+
+    return render_template('history.html', executions = Execution.query.all())
