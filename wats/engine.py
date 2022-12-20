@@ -26,22 +26,30 @@ class Test:
     def interpret_steps(self):
         self.steps = self.steps.replace('\'', '"')
 
-        print(self.steps)
         steps = json.loads((self.steps.replace('\'', '\"')))
         
-        for step in steps:
-            print(steps[step])
+        self.Execution.status = "In progress"
 
+        for step in steps:
+            
             function = steps[step]['function']
-            # print(function)
             values = steps[step]['values']
-            # print(values)
+
+            log_to_execution(self.Execution, f'action for {function} being interpreted - {values}')
+            
+            print(function)
             run_action(self, function, values)
         
         if self.flag == True:
             print('steps have been interpreted, the test has been successfull')
+
+            log_to_execution(self.Execution, 'steps have been interpreted, the test has been successfull')
+            self.Execution.status = "Finished Successfully"
         else:
             print('steps have been interpreted, the test has been unsuccessfull')
+            
+            log_to_execution(self.Execution, 'steps have been interpreted, the test has been unsuccessfull')
+            self.Execution.status = "Finished Unsuccessfully"
 
         # sleep(5)
 
@@ -59,7 +67,8 @@ def run_action(test, function, values):
             try:
                 test.driver.find_element(By.XPATH, xpath).click()
             except Exception as e:
-                print(e)
+                log_to_execution(test.Execution, 'steps have been interpreted, the test has been unsuccessfull')
+                
 
         case "send_keys_to_element":
             xpath = values['xpath']
@@ -75,7 +84,12 @@ def run_action(test, function, values):
                 sleep(time_amount)
             except:
                 print("time is not int type, skipping waiting")
-    
+
+        case "refresh":
+            try:
+                test.driver.refresh()
+            except Exception as e:
+                print(e)
 
         case "assert_element_contains_string":
             xpath = values['xpath']
