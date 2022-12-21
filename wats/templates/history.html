@@ -12,9 +12,20 @@
     
     <ul>
         
-    <li>{{ execution.name }}</li>
-    <li>{{ execution.status }}</li>    
-    <li>{{ execution.logs }}</li>    
+    <li>Nazwa scenariusza: {{ execution.name }}</li>
+    <li>Status: {{ execution.status }}</li>
+    <li>Autor: {{ execution.author }}</li>    
+    <li>
+        <ul> LOGI:
+            {% for log in execution.logs.split("||") %}
+
+            <li>
+            {{ log }}
+            </li>
+
+            {% endfor %}
+        </ul>
+    </li>    
     </ul>
     {% endfor %}
 

@@ -98,9 +98,14 @@ def run_action(test, function, values):
             try:
                 elem = test.driver.find_elements(By.XPATH, xpath)
 
-                if elem.value == string:
+                if string in elem.value:
                     print(f"Element located at {xpath} contains string {string}")
+
+
+                            #TODO
+                    print(test.flag)
                     test.flag = True
+                    print(test.flag)
                 else:
                     test.flag = False
 
@@ -129,10 +134,11 @@ def run_action(test, function, values):
                 title = test.driver.title
 
                 if string in title:
-                    print(f"title is {string}")
+                    print(f"title has {string}")
                     test.flag = True
                 else:
                     test.flag = False
+
             except Exception as e:
                 print(e)
 
@@ -146,6 +152,7 @@ def run_action(test, function, values):
                     test.flag = True
                 else:
                     test.flag = False
+            
             except Exception as e:
                 print(e)
 
